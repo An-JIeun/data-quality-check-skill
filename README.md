@@ -9,6 +9,8 @@
 `data-quality-check-skill`은 CSV, XLSX, XLS 등 다양한 테이블 데이터 파일의 품질을 자동으로 평가하고,
 결과를 표 형식 리포트와 함께 데이터 정제(클렌징) 가이드로 제공합니다.
 
+
+
 ---
 
 ## 설치 및 환경 준비
@@ -25,21 +27,42 @@ source .venv/bin/activate
 
 ---
 
-## 사용법
 
-### 1. Python 스크립트로 직접 실행
+## Claude Code에서 사용하는 방법
 
-```bash
-# 품질 검사 실행 (결과: JSON)
-python scripts/run_check.py <data.csv> [--col-dict '{"col1":"date",...}']
+### 1. 품질 검사 실행
 
-# 품질 리포트(MD/TTL) 생성
-python scripts/generate_report.py <result.json> --output-dir ./qc_reports
+> *반드시 `data-quality-check-skill` 폴더에서 claude를 실행시켜주세요!*
+
+Claude 대화창에서 아래와 같이 입력하세요:
+
+```
+품질 검사 해줘
+```
+또는
+```
+/quality check
+```
+또는
+```
+이 데이터 검수해줘
 ```
 
-### 2. Claude Skill로 사용
+그리고 CSV/XLSX/XLS 파일을 업로드하거나 경로를 입력하면 자동으로 품질 검사가 실행됩니다.
 
-- Claude에서 "품질 검사", "quality check", "데이터 검수" 등 명령어와 함께 데이터 파일을 업로드하거나 경로를 입력하면 자동 실행됩니다.
+#### (선택) 컬럼 타입 지정
+특정 컬럼의 타입을 지정하고 싶다면 아래처럼 JSON 형태로 함께 입력할 수 있습니다.
+
+```
+품질 검사 /path/to/data.csv {"col1": "date", "col2": "email"}
+```
+
+### 2. 결과 확인
+
+- 검사 결과는 마크다운 표와 함께, 데이터 정제 가이드가 자동으로 출력됩니다.
+- (자동 저장) qc_reports/ 폴더에 MD/TTL 리포트 파일이 생성됩니다.
+
+---
 
 ---
 
@@ -78,7 +101,7 @@ python scripts/generate_report.py <result.json> --output-dir ./qc_reports
 
 ## 참고
 
-- Python 3.8 이상 필요
+- Python 3.10 이상 필요
 - MIT License
 
 ---
